@@ -2,7 +2,7 @@
 
 ## November 2nd / 2021
 
-In this report, we try to find an efficient way to do the conversion of grapheme to phoneme, epecially on person names. We used the latest cmudict-0.7b\[1] as the dataset of our G2P model. We divided the datset into train set and test set. The conversion of grapheme-to-phoneme is similar with transduction. As a classic neural machine translation model and eural sequence learning, OpenNMT works well on sequence modeling and transduction problems. We tested whether OpenNMT can be used for seq2seq-g2p. Our results showed that OpenNMT-based G2P model can generate promising pronunciation, and the words in test set were completelya different from the words in train set, proving that OpenNMT is suitable for Seq2Seq-G2P.
+In this repo, we try to find an efficient way to do the conversion of grapheme to phoneme, epecially on person names. We used the latest cmudict-0.7b\[1] as the dataset of our G2P model. We divided the datset into train set and test set. The conversion of grapheme-to-phoneme is similar with transduction. As a classic neural machine translation model and eural sequence learning, OpenNMT works well on sequence modeling and transduction problems. We tested whether OpenNMT can be used for seq2seq-g2p. Our results showed that OpenNMT-based G2P model can generate promising pronunciation, and the words in test set were completelya different from the words in train set, proving that OpenNMT is suitable for Seq2Seq-G2P.
 
 ## Preparation
 To use OpenNMT-based seq2seq-g2p model, install OpenNMT first:
@@ -30,5 +30,47 @@ Note: if you encounter a `MemoryError` during installation, try to use `pip` wit
 ```bash
 pip install -r requirements.opt.txt
 ```
+## Quickstart
+### Step 1: build a configuration file
+We need to build a YAML configuration file to specify the data and model that will be used:
+```bash 
+vi cmudict_g2p_transformer.yaml
+```
+### Step 2: generate pronunciations
+To generate pronunciations for an English word list with a trained model:
+```bash
+onmt_translate -model g2p_model/model_step_1000.pt -src valid_s.txt -output exp/pred_valid_1000.txt -gpu 0 -verbose
+```
+The word list is a text file with one word per line, and each character in the word is separated by a space.
 
+
+We can also wirte a script to run conversion:
+```bash
+vi translate.sh
+
+checkpoint=10000
+src=valid_s
+tgt=valid_t
+onmt_translate \
+         -gpu 0 \
+         -batch_size 2 \
+         -beam_size 3 \
+         -model g2p_model_0.5_10000/cmu_g2p_model_step_${checkpoint}.pt \
+         -src $src.txt \
+         -output run/pred_${src}_${checkpoint}.txt \
+         -tgt $tgt.txt \
+         -verbose \
+         --n_best 3 \
+         &> run/translate.log&
+```
+
+
+## Start
+### Step 1: Prepare the data
+
+To get started, we propose to download a CMUdict for grapheme-to-phoneme, also we provide the processed CMUdict in this repo:
+
+```bash
+git clone https://github.com/Alexir/CMUdict.git
+```
 
