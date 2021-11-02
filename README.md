@@ -46,8 +46,6 @@ The word list is a text file with one word per line, and each character in the w
 
 We can also wirte a script to run conversion:
 ```bash
-vi translate.sh
-
 checkpoint=10000
 src=valid_s
 tgt=valid_t
