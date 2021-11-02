@@ -41,7 +41,10 @@ To generate pronunciations for an English word list with a trained model:
 ```bash
 onmt_translate -model g2p_model/model_step_1000.pt -src valid_s.txt -output exp/pred_valid_1000.txt -gpu 0 -verbose
 ```
-The word list is a text file with one word per line, and each character in the word is separated by a space.
+The word list is a text file with one word per line, and each character in the word is separated by a space:
+```bash
+H E L L O
+```
 
 
 We can also wirte a script to run conversion:
