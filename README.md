@@ -66,7 +66,7 @@ onmt_translate \
 ```
 
 
-## Start
+## Train G2P model
 ### Step 1: Prepare the data
 
 To get started, we propose to download a CMUdict for grapheme-to-phoneme, also we provide the processed CMUdict in this repo:
@@ -74,4 +74,14 @@ To get started, we propose to download a CMUdict for grapheme-to-phoneme, also w
 ```bash
 git clone https://github.com/Alexir/CMUdict.git
 ```
+We can use the latest cmudict-0.7b. We also need to do the following:
+Convert words into character sequences：
+```bash
+HELLO ---> H E L L O
+```
+Remove the markers after multi-pronounced words：
+```bash
+
+```
+If you want to train a g2p-model for perosn names, we advice you delete the 
 
