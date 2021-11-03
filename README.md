@@ -152,3 +152,30 @@ onmt_train -config cmudict_g2p_transformer.yaml
 ```
 For more  parameters, see [example configurations](https://github.com/OpenNMT/OpenNMT-py/tree/master/config) 
 
+### Step 3: Convert 
+
+```bash
+onmt_translate -model exp/run/model_step_1000.pt -src data/src-test.txt -output exp/pred_1000.txt -gpu 0 -verbose
+```
+
+Now you have a model which you can use to predict on new data. We do this by running beam search. This will output predictions into `exp/pred_1000.txt`.
+
+**Note**:
+
+We can also wirte a script to run conversion:
+```bash
+checkpoint=10000
+src=valid_s
+tgt=valid_t
+onmt_translate \
+         -gpu 0 \
+         -batch_size 2 \
+         -beam_size 3 \
+         -model g2p_model_0.5_10000/cmu_g2p_model_step_${checkpoint}.pt \
+         -src $src.txt \
+         -output run/pred_${src}_${checkpoint}.txt \
+         -tgt $tgt.txt \
+         -verbose \
+         --n_best 3 \
+         &> run/translate.log&
+```
