@@ -1,0 +1,71 @@
+save_checkpoint_steps: 100
+keep_checkpoint: 10
+seed: 3435
+train_steps: 30000
+valid_steps: 100
+warmup_steps: 800
+report_every: 10
+
+decoder_type: transformer
+encoder_type: transformer
+word_vec_size: 512
+rnn_size: 512
+layers: 6
+transformer_ff: 2048
+heads: 8
+
+accum_count: 8
+optim: adam
+adam_beta1: 0.9
+adam_beta2: 0.998
+decay_method: noam
+learning_rate: 0.5
+max_grad_norm: 0.0
+
+batch_size: 64
+#batch_type: "tokens"
+#normalization: "tokens"
+dropout: 0.1
+label_smoothing: 0.1
+
+max_generator_batches: 2
+
+param_init: 0.0
+param_init_glorot: 'true'
+position_encoding: 'true'
+
+world_size: 1
+gpu_ranks:
+- 0
+save_data: run/example
+src_vocab: run/example.vocab.src
+tgt_vocab: run/example.vocab.tgt
+overwrite: True
+data:
+    train:
+        path_src: train_s.txt
+        path_tgt: train_t.txt
+    valid:
+        path_src: valid_s.txt
+        path_tgt: valid_t.txt
+## Transform related opts:
+#### Subword
+#src_subword_model: data/wmt/wmtende.model
+#tgt_subword_model: data/wmt/wmtende.model
+src_subword_nbest: 1
+src_subword_alpha: 0.0
+tgt_subword_nbest: 1
+tgt_subword_alpha: 0.0
+#### Filter
+src_seq_length: 15
+tgt_seq_length: 15
+
+# silently ignore empty lines in the data
+#skip_empty_level: silent
+src_vocab: run/example.vocab.src
+tgt_vocab: run/example.vocab.tgt
+
+save_model: g2p_model_0.5_30000/cmu_g2p_model
+
+src_vocab_size: 50
+tgt_vocab_size: 100
