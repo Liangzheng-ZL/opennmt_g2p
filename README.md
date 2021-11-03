@@ -81,7 +81,8 @@ HELLO ---> H E L L O
 ```
 Remove the markers after multi-pronounced words：
 ```bash
-
+ABS  EY1 B IY1 EH1 S ---> ABS  EY1 B IY1 EH1 S
+ABS(1)  AE1 B Z ---> ABS(1)  AE1 B Z
 ```
 If you want to train a g2p-model for perosn names, we advice you delete the 
 
