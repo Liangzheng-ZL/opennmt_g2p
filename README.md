@@ -38,6 +38,7 @@ vi cmudict_g2p_transformer.yaml
 ```
 ### Step 2: generate pronunciations
 To generate pronunciations for an English word list with a trained model:
+You can download model form :https://drive.google.com/file/d/1QTPt0CiTF3GInr9DdCzlR2-nPpFmGr47/view?usp=sharing
 ```bash
 onmt_translate -model g2p_model/model_step_1000.pt -src valid_s.txt -output exp/pred_valid_1000.txt -gpu 0 -verbose
 ```
