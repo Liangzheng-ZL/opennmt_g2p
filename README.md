@@ -40,7 +40,7 @@ vi cmudict_g2p_transformer.yaml
 To generate pronunciations for an English word list with a trained model:
 You can download model form :https://drive.google.com/file/d/1QTPt0CiTF3GInr9DdCzlR2-nPpFmGr47/view?usp=sharing
 ```bash
-onmt_translate -model g2p_model/model_step_1000.pt -src valid_s.txt -output exp/pred_valid_1000.txt -gpu 0 -verbose
+onmt_translate -model cmu_g2p_model_step_29300_release.pt -src valid_s.txt -output exp/pred_valid.txt -gpu 0 -verbose
 ```
 The word list is a text file with one word per line, and each character in the word is separated by a space:
 ```bash
@@ -50,16 +50,15 @@ H E L L O
 
 We can also wirte a script to run conversion:
 ```bash
-checkpoint=10000
 src=valid_s
 tgt=valid_t
 onmt_translate \
          -gpu 0 \
          -batch_size 2 \
          -beam_size 3 \
-         -model g2p_model_0.5_10000/cmu_g2p_model_step_${checkpoint}.pt \
+         -model cmu_g2p_model_step_29300_release.pt \
          -src $src.txt \
-         -output run/pred_${src}_${checkpoint}.txt \
+         -output run/pred_${src}.txt \
          -tgt $tgt.txt \
          -verbose \
          --n_best 3 \
@@ -172,7 +171,7 @@ onmt_translate \
          -gpu 0 \
          -batch_size 2 \
          -beam_size 3 \
-         -model g2p_model_0.5_10000/cmu_g2p_model_step_${checkpoint}.pt \
+         -model exp/run/model_step_${checkpoint}.pt \
          -src $src.txt \
          -output run/pred_${src}_${checkpoint}.txt \
          -tgt $tgt.txt \
